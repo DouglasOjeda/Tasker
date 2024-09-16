@@ -16,6 +16,8 @@ public class TaskManagerTest {
 		TaskManager tasker = new TaskManager("Tasker");
 		assertEquals("Tasker", tasker.getTitle());
 		assertEquals(0, tasker.size());
+		assertThrows(IllegalArgumentException.class, () -> new TaskManager(null));
+		assertThrows(IllegalArgumentException.class, () -> new TaskManager(""));
 	}
 	/**
 	 * Testing the add and remove methods.

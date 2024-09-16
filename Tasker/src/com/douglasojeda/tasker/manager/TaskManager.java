@@ -48,10 +48,14 @@ public class TaskManager {
 	 * to tell where in the index it will be put. It adds the Task and move other Tasks accordingly.
 	 * @param priority the priority of the Task to be added
 	 * @param name the name of the Task to be added
-	 * @throws IllegalArgumentException when when priority, or name are invalid.
+	 * @throws IllegalArgumentException when when priority, or name are invalid. When the name is null,
+	 * or empty string.
 	 * @throws IndexOutOfBoundsException when the index is less than 1 or greater than size + 1.
 	 */
 	public void addTask(int priority, String name) {
+		if (name == null || "".equals(name)) {
+			throw new IllegalArgumentException("Invalid name for Task.");
+		}
 		if (priority < 1 || priority > size() + 1) {
 			throw new IndexOutOfBoundsException();
 		}
@@ -93,6 +97,29 @@ public class TaskManager {
 			tasks.set((i), new Task(i , transferName));
 		}
 		return tasks.remove(priority - 1);
+	}
+	/**
+	 * Changes the Task priority to another priority.
+	 * @param oldPriority the old priority
+	 * @param newPriority the new priority
+	 * @throws IllegalArgumentException when the oldPriority is the same as the newPriority.
+	 * When the size is 0.
+	 * @throws IndexOutOfBoundsException when the oldPriority and the newPriority are less than 1,
+	 * or greater than size.
+	 */
+	public void changeTaskPriority(int oldPriority, int newPriority) {
+		if (tasks.size() == 0) {
+			throw new IllegalArgumentException("There are no Task yet.");
+		}
+		if (oldPriority == newPriority) {
+			throw new IllegalArgumentException("The new priority can't be the same as the old priority.");
+		}
+		if (oldPriority < 1 || oldPriority > tasks.size()) {
+			throw new IndexOutOfBoundsException();
+		}
+		if (newPriority < 1 || oldPriority > tasks.size()) {
+			throw new IndexOutOfBoundsException();
+		}
 	}
 	/**
 	 * Returns the size of the Task list.
