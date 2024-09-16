@@ -6,9 +6,9 @@ package com.douglasojeda.tasker.task;
  * @author douglasojeda
  */
 public class Task {
-	/** Priority of the Task */
+	/** Priority of the Task. */
 	private int priority;
-	/** Name of the Task */
+	/** Name of the Task. */
 	private String name;
 	/**
 	 * Constructs a Task using a priority and a name.
@@ -52,7 +52,7 @@ public class Task {
 	 */
 	private void setName(String name) {
 		if (name == null) {
-			throw new IllegalArgumentException("Name is null!");
+			throw new IllegalArgumentException("Null name!");
 		}
 		if ("".equals(name)) {
 			throw new IllegalArgumentException("Name can't be empty.");
