@@ -51,7 +51,7 @@ public class TaskManager {
 	 * @throws IllegalArgumentException when when priority, or name are invalid.
 	 * @throws IndexOutOfBoundsException when the index is less than 1 or greater than size + 1.
 	 */
-	public void addTaskAtIndex(int priority, String name) {
+	public void addTask(int priority, String name) {
 		if (priority < 1 || priority > size() + 1) {
 			throw new IndexOutOfBoundsException();
 		}
@@ -68,7 +68,7 @@ public class TaskManager {
 	 * @throws IllegalArgumentException when when priority, or name are invalid.
 	 */
 	public void addTaskHighestPriority(String name) {
-		addTaskAtIndex(1, name);
+		addTask(1, name);
 	}
 	/**
 	 * Adds a Task to the front of the list with the lowest priority.
@@ -76,15 +76,23 @@ public class TaskManager {
 	 * @throws IllegalArgumentException when when priority, or name are invalid.
 	 */
 	public void addTaskLowestPriority(String name) {
-		addTaskAtIndex(size() + 1, name);
+		addTask(size() + 1, name);
 	}
 	/**
 	 * Removes a Task from the list.
-	 * @param idx the index of the Task being removed
+	 * @param priority the priority of the Task being removed
 	 * @return the Task that was removed
+	 * @throws IndexOutOfBoundsException when the priority is less than 1 or greater than size + 1.
 	 */
-	public Task removeTask(int idx) {
-		return null;
+	public Task removeTask(int priority) {
+		if (priority < 1 || priority > tasks.size() + 1) {
+			throw new IndexOutOfBoundsException();
+		}
+		for (int i = priority; i < tasks.size(); i++) {
+			String transferName = tasks.get(i).getName();
+			tasks.set((i), new Task(i , transferName));
+		}
+		return tasks.remove(priority - 1);
 	}
 	/**
 	 * Returns the size of the Task list.
