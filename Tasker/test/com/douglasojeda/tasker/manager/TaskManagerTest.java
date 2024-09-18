@@ -13,18 +13,16 @@ public class TaskManagerTest {
 	 */
 	@Test
 	public void testConstructor() {
-		TaskManager tasker = new TaskManager("Tasker");
+		TaskManager tasker = new TaskManager();
 		assertEquals("Tasker", tasker.getTitle());
 		assertEquals(0, tasker.size());
-		assertThrows(IllegalArgumentException.class, () -> new TaskManager(null));
-		assertThrows(IllegalArgumentException.class, () -> new TaskManager(""));
 	}
 	/**
 	 * Testing the add and remove methods.
 	 */
 	@Test
 	public void testAddRemoveTask() {
-		TaskManager tasker = new TaskManager("Tasker");
+		TaskManager tasker = new TaskManager();
 		//Adding first Task
 		tasker.addTask(1, "Homework 1");
 		assertEquals(1, tasker.size());
@@ -123,7 +121,7 @@ public class TaskManagerTest {
 	 */
 	@Test
 	public void testChangeTaskPriority() {
-		TaskManager tasker = new TaskManager("Tasker");
+		TaskManager tasker = new TaskManager();
 		tasker.addTask(1, "Homework 1");
 		tasker.addTask(2, "Homework 2");
 		tasker.addTask(3, "Homework 3");

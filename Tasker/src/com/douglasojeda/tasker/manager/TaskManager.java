@@ -9,17 +9,17 @@ import com.douglasojeda.tasker.task.Task;
  * @author douglasojeda
  */
 public class TaskManager {
+	/** Default title for TaskManager */
+	private static final String DEFAULT_TITLE = "Tasker";
 	/** Title of TaskManager. */
 	private String title;
 	/** TaskManagers List of Tasks. */
 	private ArrayList<Task> tasks;
 	/**
-	 * Constructs a TaskManager with a title. An Empty list is created for tasks.
-	 * @param title the title for TaskManager
-	 * @throws IllegalArgumentException when title is invalid.
+	 * Constructs a TaskManager with a default title. An Empty list is created for tasks.
 	 */
-	public TaskManager(String title) {
-		setTitle(title);
+	public TaskManager() {
+		setTitle(DEFAULT_TITLE);
 		tasks = new ArrayList<Task>();
 	}
 	/**
