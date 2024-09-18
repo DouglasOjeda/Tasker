@@ -60,8 +60,8 @@ public class TaskManager {
 			throw new IndexOutOfBoundsException();
 		}
 		for (int i = tasks.size(); i > priority - 1; i--) {
-			int transferPriority = tasks.get(i - 1).getPriority() + 1;
-			String transferName = tasks.get(i - 1).getName();
+			int transferPriority = getTask(i).getPriority() + 1;
+			String transferName = getTask(i).getName();
 			tasks.set(i - 1, new Task(transferPriority, transferName));
 		}
 		tasks.add(priority - 1, new Task(priority, name));
@@ -120,6 +120,9 @@ public class TaskManager {
 		if (newPriority < 1 || oldPriority > tasks.size()) {
 			throw new IndexOutOfBoundsException();
 		}
+		String transferName = getTask(oldPriority).getName();
+		removeTask(oldPriority);
+		addTask(newPriority, transferName);
 	}
 	/**
 	 * Returns the size of the Task list.
