@@ -41,12 +41,15 @@ public class TaskerUI {
 			}
 			menuInput = keyboard.nextInt();
 			System.out.println(TEXT_DIVIDER);
+			System.out.print("\033[H\033[2J");
 			switch (menuInput) {
 			case MENU_OPTION_ADD:
 				int subMenuInput = 2;
 				do {
 					addTask(tasker, keyboard);
+					System.out.print("\033[H\033[2J");
 					System.out.println("Task was added!");
+					System.out.println(TEXT_DIVIDER);
 					System.out.println("1. Add another Task");
 					System.out.println("2. Back to menu");
 					System.out.println(TEXT_DIVIDER);
