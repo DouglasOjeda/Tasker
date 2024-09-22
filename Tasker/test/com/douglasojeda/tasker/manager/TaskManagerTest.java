@@ -23,6 +23,10 @@ public class TaskManagerTest {
 	@Test
 	public void testAddRemoveTask() {
 		TaskManager tasker = new TaskManager();
+		Exception e1 = assertThrows(IllegalArgumentException.class, () -> tasker.addTask(1, null));
+		assertEquals("Invalid name for Task.", e1.getMessage());
+		Exception e2 = assertThrows(IllegalArgumentException.class, () -> tasker.addTask(1, ""));
+		assertEquals("Invalid name for Task.", e2.getMessage());
 		//Adding first Task
 		tasker.addTask(1, "Homework 1");
 		assertEquals(1, tasker.size());
@@ -81,6 +85,8 @@ public class TaskManagerTest {
 		assertEquals("Homework 2", tasker.getTask(5).getName());
 		assertEquals(6, tasker.getTask(6).getPriority());
 		assertEquals("Assignment", tasker.getTask(6).getName());
+		assertThrows(IndexOutOfBoundsException.class, () -> tasker.removeTask(0));
+		assertThrows(IndexOutOfBoundsException.class, () -> tasker.removeTask(7));
 		//Removing a Task from last
 		tasker.removeTask(6);
 		assertEquals(5, tasker.size());
@@ -117,12 +123,18 @@ public class TaskManagerTest {
 		//TODO add error checking tests
 	}
 	/**
-	 * Tests for changeTaskPriority method.
+	 * Testing the changeTaskPriority method.
 	 */
 	@Test
 	public void testChangeTaskPriority() {
 		TaskManager tasker = new TaskManager();
+		Exception e1 = assertThrows(IllegalArgumentException.class, () -> tasker.changeTaskPriority(1, 1));
+		assertEquals("There are no Tasks yet.", e1.getMessage());
 		tasker.addTask(1, "Homework 1");
+		Exception e2 = assertThrows(IllegalArgumentException.class, () -> tasker.changeTaskPriority(1, 1));
+		assertEquals("The new priority can't be the same as the old priority.", e2.getMessage());
+		assertThrows(IndexOutOfBoundsException.class, () -> tasker.changeTaskPriority(2, 1));
+		assertThrows(IndexOutOfBoundsException.class, () -> tasker.changeTaskPriority(1, 2));
 		tasker.addTask(2, "Homework 2");
 		tasker.addTask(3, "Homework 3");
 		tasker.addTask(4, "Homework 4"); 
@@ -135,5 +147,18 @@ public class TaskManagerTest {
 		assertEquals("Homework 3", tasker.getTask(3).getName());
 		assertEquals(4, tasker.getTask(4).getPriority());
 		assertEquals("Homework 4", tasker.getTask(4).getName());
+		assertThrows(IndexOutOfBoundsException.class, () -> tasker.addTask(0, "Homewor0"));
+		assertThrows(IndexOutOfBoundsException.class, () -> tasker.addTask(6, "Homewor6"));
+	}
+	/**
+	 * Testing the setTitle method.
+	 */
+	@Test
+	public void testSetTitle() {
+		TaskManager tasker = new TaskManager();
+		Exception e1 = assertThrows(IllegalArgumentException.class, () -> tasker.setTitle(null));
+		assertEquals("Null title!", e1.getMessage());
+		Exception e2 = assertThrows(IllegalArgumentException.class, () -> tasker.setTitle(""));
+		assertEquals("Title can't be empty.", e2.getMessage());
 	}
 }

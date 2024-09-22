@@ -29,7 +29,9 @@ public class TaskTest {
 	}
 	/**
 	 * Testing the equals and hashCode methods.
+	 * Suppressed warning to test functionality if passed non Task object.
 	 */
+	@SuppressWarnings("unlikely-arg-type")
 	@Test
 	public void testEquals() {
 		//Checking equals
@@ -49,6 +51,7 @@ public class TaskTest {
 		assertFalse(t1.equals(t3));
 		assertFalse(t1.equals(t4));
 		assertFalse(t1.equals(t5));
+		assertFalse(t1.equals("Hello"));
 		//Checking hash code
 		assertEquals(t1.hashCode(), t2.hashCode());
 		assertNotEquals(t1.hashCode(), t3.hashCode());

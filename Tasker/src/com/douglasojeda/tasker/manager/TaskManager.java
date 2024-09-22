@@ -39,7 +39,7 @@ public class TaskManager {
 			throw new IllegalArgumentException("Null title!");
 		}
 		if ("".equals(title)) {
-			throw new IllegalArgumentException("Name can't be empty.");
+			throw new IllegalArgumentException("Title can't be empty.");
 		}
 		this.title = title;
 	}
@@ -109,7 +109,7 @@ public class TaskManager {
 	 */
 	public void changeTaskPriority(int oldPriority, int newPriority) {
 		if (tasks.size() == 0) {
-			throw new IllegalArgumentException("There are no Task yet.");
+			throw new IllegalArgumentException("There are no Tasks yet.");
 		}
 		if (oldPriority == newPriority) {
 			throw new IllegalArgumentException("The new priority can't be the same as the old priority.");
@@ -117,7 +117,7 @@ public class TaskManager {
 		if (oldPriority < 1 || oldPriority > tasks.size()) {
 			throw new IndexOutOfBoundsException();
 		}
-		if (newPriority < 1 || oldPriority > tasks.size()) {
+		if (newPriority < 1 || newPriority > tasks.size()) {
 			throw new IndexOutOfBoundsException();
 		}
 		String transferName = getTask(oldPriority).getName();
