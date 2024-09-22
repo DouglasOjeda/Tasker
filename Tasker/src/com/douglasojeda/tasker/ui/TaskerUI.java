@@ -59,10 +59,9 @@ public class TaskerUI {
 						System.out.println(TEXT_DIVIDER);
 						System.out.println("Enter an Enterger from 1 to 2: ");
 					}
-					
+					System.out.println(TEXT_DIVIDER);
+					System.out.print("\033[H\033[2J");
 				} while (subMenuInput != 2);
-				System.out.println(TEXT_DIVIDER);
-				System.out.print("\033[H\033[2J");
 				break;
 			case 2:
 				removeTask(tasker, keyboard);
@@ -104,7 +103,7 @@ public class TaskerUI {
 	 * @param tasker the TaskManager that will be used to retrieve tasks.
 	 */
 	public static void listTasks(TaskManager tasker) {
-		System.out.println(tasker.getTitle() + " Tasks");
+		System.out.println("Tasks");
 		System.out.println(TEXT_DIVIDER);
 		for (int i = 0; i < tasker.size(); i++) {
 			System.out.printf("%d) %s\n", tasker.getTask(i + 1).getPriority(), tasker.getTask(i + 1).getName());
