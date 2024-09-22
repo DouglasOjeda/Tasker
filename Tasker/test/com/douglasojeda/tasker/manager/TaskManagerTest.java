@@ -23,6 +23,8 @@ public class TaskManagerTest {
 	@Test
 	public void testAddRemoveTask() {
 		TaskManager tasker = new TaskManager();
+		Exception e0 = assertThrows(IllegalArgumentException.class, () -> tasker.removeTask(1));
+		assertEquals("No Tasks to remove.", e0.getMessage());
 		Exception e1 = assertThrows(IllegalArgumentException.class, () -> tasker.addTask(1, null));
 		assertEquals("Invalid name for Task.", e1.getMessage());
 		Exception e2 = assertThrows(IllegalArgumentException.class, () -> tasker.addTask(1, ""));
@@ -47,6 +49,10 @@ public class TaskManagerTest {
 		assertEquals(3, tasker.getTask(3).getPriority());
 		assertEquals("Homework 2", tasker.getTask(3).getName());
 		//Adding fourth Task
+		Exception e3 = assertThrows(IndexOutOfBoundsException.class, () -> tasker.addTask(0, "A task"));
+		assertEquals("Priority has to be an integer from 1 to 4.", e3.getMessage());
+		Exception e4 = assertThrows(IndexOutOfBoundsException.class, () -> tasker.addTask(5, "A task"));
+		assertEquals("Priority has to be an integer from 1 to 4.", e4.getMessage());
 		tasker.addTask(2, "Reading 2");
 		assertEquals(4, tasker.size());
 		assertEquals(1, tasker.getTask(1).getPriority());
@@ -85,8 +91,10 @@ public class TaskManagerTest {
 		assertEquals("Homework 2", tasker.getTask(5).getName());
 		assertEquals(6, tasker.getTask(6).getPriority());
 		assertEquals("Assignment", tasker.getTask(6).getName());
-		assertThrows(IndexOutOfBoundsException.class, () -> tasker.removeTask(0));
-		assertThrows(IndexOutOfBoundsException.class, () -> tasker.removeTask(7));
+		Exception e5 = assertThrows(IndexOutOfBoundsException.class, () -> tasker.removeTask(0));
+		assertEquals("Priority has to be an integer from 1 to 6.", e5.getMessage());
+		Exception e6 = assertThrows(IndexOutOfBoundsException.class, () -> tasker.removeTask(7));
+		assertEquals("Priority has to be an integer from 1 to 6.", e6.getMessage());
 		//Removing a Task from last
 		tasker.removeTask(6);
 		assertEquals(5, tasker.size());
@@ -120,7 +128,6 @@ public class TaskManagerTest {
 		assertEquals("Reading 2", tasker.getTask(2).getName());
 		assertEquals(3, tasker.getTask(3).getPriority());
 		assertEquals("Homework 2", tasker.getTask(3).getName());
-		//TODO add error checking tests
 	}
 	/**
 	 * Testing the changeTaskPriority method.
@@ -133,8 +140,10 @@ public class TaskManagerTest {
 		tasker.addTask(1, "Homework 1");
 		Exception e2 = assertThrows(IllegalArgumentException.class, () -> tasker.changeTaskPriority(1, 1));
 		assertEquals("The new priority can't be the same as the old priority.", e2.getMessage());
-		assertThrows(IndexOutOfBoundsException.class, () -> tasker.changeTaskPriority(2, 1));
-		assertThrows(IndexOutOfBoundsException.class, () -> tasker.changeTaskPriority(1, 2));
+		Exception e3 = assertThrows(IndexOutOfBoundsException.class, () -> tasker.changeTaskPriority(2, 1));
+		assertEquals("Priority has to be an integer from 1 to 1.", e3.getMessage());
+		Exception e4 = assertThrows(IndexOutOfBoundsException.class, () -> tasker.changeTaskPriority(1, 2));
+		assertEquals("Priority has to be an integer from 1 to 1.", e4.getMessage());
 		tasker.addTask(2, "Homework 2");
 		tasker.addTask(3, "Homework 3");
 		tasker.addTask(4, "Homework 4"); 
@@ -147,8 +156,6 @@ public class TaskManagerTest {
 		assertEquals("Homework 3", tasker.getTask(3).getName());
 		assertEquals(4, tasker.getTask(4).getPriority());
 		assertEquals("Homework 4", tasker.getTask(4).getName());
-		assertThrows(IndexOutOfBoundsException.class, () -> tasker.addTask(0, "Homewor0"));
-		assertThrows(IndexOutOfBoundsException.class, () -> tasker.addTask(6, "Homewor6"));
 	}
 	/**
 	 * Testing the setTitle method.

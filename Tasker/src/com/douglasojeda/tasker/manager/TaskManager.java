@@ -57,7 +57,7 @@ public class TaskManager {
 			throw new IllegalArgumentException("Invalid name for Task.");
 		}
 		if (priority < 1 || priority > size() + 1) {
-			throw new IndexOutOfBoundsException();
+			throw new IndexOutOfBoundsException("Priority has to be an integer from " + "1 to " + (size() + 1) + ".");
 		}
 		for (int i = tasks.size(); i > priority - 1; i--) {
 			int transferPriority = getTask(i).getPriority() + 1;
@@ -89,8 +89,11 @@ public class TaskManager {
 	 * @throws IndexOutOfBoundsException when the priority is less than 1 or greater than size + 1.
 	 */
 	public Task removeTask(int priority) {
-		if (priority < 1 || priority > tasks.size() + 1) {
-			throw new IndexOutOfBoundsException();
+		if (size() == 0) {
+			throw new IllegalArgumentException("No Tasks to remove.");
+		}
+		if (priority < 1 || priority > tasks.size()) {
+			throw new IndexOutOfBoundsException("Priority has to be an integer from " + "1 to " + size() + ".");
 		}
 		for (int i = priority; i < tasks.size(); i++) {
 			String transferName = tasks.get(i).getName();
@@ -115,10 +118,10 @@ public class TaskManager {
 			throw new IllegalArgumentException("The new priority can't be the same as the old priority.");
 		}
 		if (oldPriority < 1 || oldPriority > tasks.size()) {
-			throw new IndexOutOfBoundsException();
+			throw new IndexOutOfBoundsException("Priority has to be an integer from " + "1 to " + size() + ".");
 		}
 		if (newPriority < 1 || newPriority > tasks.size()) {
-			throw new IndexOutOfBoundsException();
+			throw new IndexOutOfBoundsException("Priority has to be an integer from " + "1 to " + size() + ".");
 		}
 		String transferName = getTask(oldPriority).getName();
 		removeTask(oldPriority);
