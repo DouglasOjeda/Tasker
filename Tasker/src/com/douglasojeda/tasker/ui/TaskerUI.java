@@ -29,7 +29,7 @@ public class TaskerUI {
 	public static void main(String[] args) {
 		Scanner keyboard = new Scanner(System.in);
 		TaskManager tasker = new TaskManager();
-		int menuInput = 5;
+		int menuInput = 0;
 		do {
 			menuDisplay(tasker);
 			while (!keyboard.hasNextInt()) {
@@ -45,21 +45,41 @@ public class TaskerUI {
 			System.out.print("\033[H\033[2J");
 			switch (menuInput) {
 			case MENU_OPTION_ADD:
-				int subMenuInput = 2;
+				int subMenuInput = REPEAT_OPTION;
 				do {
-					addTask(tasker, keyboard);
-					System.out.print("\033[H\033[2J");
-					System.out.println("Task was added!");
-					System.out.println(TEXT_DIVIDER);
-					subMenuAnother("Add another Task");
-					while (!keyboard.hasNextInt() && subMenuInput != 1 && subMenuInput != 2) {
-						keyboard.next();
+					switch (subMenuInput) {
+					case REPEAT_OPTION:
+						addTask(tasker, keyboard);
+						System.out.print("\033[H\033[2J");
+						System.out.println("Task was added!");
 						System.out.println(TEXT_DIVIDER);
-						System.out.print("Enter an Enterger from 1 to 2: ");
+						subMenuAnother("Add another Task");
+						while (!keyboard.hasNextInt()) {
+							keyboard.next();
+							System.out.println(TEXT_DIVIDER);
+							System.out.print("Enter an Enterger from 1 to 2: ");
+							System.out.println(TEXT_DIVIDER);
+							subMenuAnother("Add another Task");
+						}
+						subMenuInput = keyboard.nextInt();
+						System.out.println(TEXT_DIVIDER);
+						System.out.print("\033[H\033[2J");
+						break;
+					case BACK_TO_MENU_OPTION:
+						break;
+					default:
+						while (!keyboard.hasNextInt()) {
+							keyboard.next();
+							System.out.println(TEXT_DIVIDER);
+							System.out.print("Enter an Enterger from 1 to 2: ");
+							System.out.println(TEXT_DIVIDER);
+							subMenuAnother("Add another Task");
+						}
+						subMenuInput = keyboard.nextInt();
+						System.out.println(TEXT_DIVIDER);
+						System.out.print("\033[H\033[2J");
+						break;
 					}
-					subMenuInput = keyboard.nextInt();
-					System.out.println(TEXT_DIVIDER);
-					System.out.print("\033[H\033[2J");
 				} while (subMenuInput != 2);
 				break;
 			case 2:
