@@ -34,7 +34,8 @@ public class TaskerUI {
 			menuDisplay(tasker);
 			while (!keyboard.hasNextInt()) {
 				keyboard.next();
-				System.out.println();
+				System.out.println(TEXT_DIVIDER);
+				clearConsole();
 				System.out.println("Enter a single integer from 1 to 5: ");
 				System.out.println();
 				menuDisplay(tasker);
@@ -50,10 +51,7 @@ public class TaskerUI {
 					System.out.print("\033[H\033[2J");
 					System.out.println("Task was added!");
 					System.out.println(TEXT_DIVIDER);
-					System.out.println("1. Add another Task");
-					System.out.println("2. Back to menu");
-					System.out.println(TEXT_DIVIDER);
-					System.out.print("Choose an option: ");
+					subMenuAnother("Add another Task");
 					subMenuInput = keyboard.nextInt();
 					while (subMenuInput != 1 && subMenuInput != 2) {
 						System.out.println(TEXT_DIVIDER);
@@ -84,7 +82,7 @@ public class TaskerUI {
 		keyboard.close();
 	}
 	/**
-	 * Displays the UI menu.
+	 * Displays the UI main menu.
 	 * @param tasker the TaskManager used for getting name.
 	 */
 	public static void menuDisplay(TaskManager tasker) {
@@ -95,6 +93,17 @@ public class TaskerUI {
 		System.out.println("3. Change Task");
 		System.out.println("4. List Tasks");
 		System.out.println("5. Exit");
+		System.out.println(TEXT_DIVIDER);
+		System.out.print("Choose an option: ");
+	}
+	/**
+	 * Displays a UI sub menu for performing the same menu option again, or returning back to the
+	 * main menu.
+	 * @param firstMenuOption the sub menu option to perform the same option again
+	 */
+	public static void subMenuAnother(String firstMenuOption) {
+		System.out.println("1. Add another Task");
+		System.out.println("2. Back to menu");
 		System.out.println(TEXT_DIVIDER);
 		System.out.print("Choose an option: ");
 	}
@@ -111,8 +120,14 @@ public class TaskerUI {
 		System.out.println(TEXT_DIVIDER);
 	}
 	/**
-	 * Prompts the user for a Task name and a Task priority.
-	 * @param tasker the TaskManager that will have the Task added to
+	 * Clears the console.
+	 */
+	public static void clearConsole() {
+		System.out.print("\033[H\033[2J");
+	}
+	/**
+	 * Prompts the user for a Task name and a Task priority to Add a Task.
+	 * @param tasker the TaskManager where the Task wil be added to
 	 * @param keyboard the Scanner that will take in the keyboard input
 	 */
 	public static void addTask(TaskManager tasker, Scanner keyboard) {
@@ -142,6 +157,12 @@ public class TaskerUI {
 			}
 		}
 	}
+	/**
+	 * Prompts the user for a Task priority to remove a Task.
+	 * @param tasker the TaskManager where the Task will be removed from
+	 * @param keyboard the Scanner that will take in the keyboard input
+	 * @return the Task that was removed
+	 */
 	public static Task removeTask(TaskManager tasker, Scanner keyboard) {
 		boolean sucessfulTask = false;
 		while (!sucessfulTask) {
