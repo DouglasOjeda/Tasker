@@ -99,7 +99,7 @@ public class TaskerUI {
 	/**
 	 * Displays a UI sub menu for performing the same menu option again, or returning back to the
 	 * main menu.
-	 * @param firstMenuOption the sub menu option to perform the same option again
+	 * @param firstMenuOption the String for sub menu option to perform the same option again
 	 */
 	public static void subMenuAnother(String firstMenuOption) {
 		System.out.println("1. Add another Task");
