@@ -3,6 +3,7 @@ package com.douglasojeda.tasker.ui;
 import com.douglasojeda.tasker.manager.TaskManager;
 import com.douglasojeda.tasker.task.Task;
 
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class TaskerUI {
@@ -31,18 +32,22 @@ public class TaskerUI {
 		TaskManager tasker = new TaskManager();
 		int menuInput = 0;
 		do {
+			boolean isMainMenuInputInteger = false;
 			menuDisplay(tasker);
-			while (!keyboard.hasNextInt()) {
-				keyboard.next();
-				System.out.println(TEXT_DIVIDER);
-				clearConsole();
-				System.out.println("Enter a single integer from 1 to 5");
-				System.out.println(TEXT_DIVIDER);
-				menuDisplay(tasker);
+			while (!isMainMenuInputInteger) {
+				try {
+					menuInput = Integer.parseInt(keyboard.nextLine());
+					isMainMenuInputInteger = true;
+				} catch (NumberFormatException e) {
+					System.out.println(TEXT_DIVIDER);
+					clearConsole();
+					System.out.println("Enter a single integer from 1 to 5");
+					System.out.println(TEXT_DIVIDER);
+					menuDisplay(tasker);
+				}
 			}
-			menuInput = keyboard.nextInt();
 			System.out.println(TEXT_DIVIDER);
-			System.out.print("\033[H\033[2J");
+			clearConsole();
 			switch (menuInput) {
 			case MENU_OPTION_ADD:
 				int subMenuInput = REPEAT_OPTION;
@@ -53,31 +58,44 @@ public class TaskerUI {
 						System.out.print("\033[H\033[2J");
 						System.out.println("Task was added!");
 						System.out.println(TEXT_DIVIDER);
-						subMenuAnother("Add another Task");
-						while (!keyboard.hasNextInt()) {
-							keyboard.next();
-							System.out.println(TEXT_DIVIDER);
-							System.out.println("Enter an Enterger from 1 to 2");
-							System.out.println(TEXT_DIVIDER);
-							subMenuAnother("Add another Task");
+						subMenuAdd("Add another Task");
+						boolean isSubMenuInputInteger = false;
+						while (!isSubMenuInputInteger) {
+							try {
+								subMenuInput = Integer.parseInt(keyboard.nextLine());
+								isSubMenuInputInteger = true;
+							} catch (NumberFormatException e) {
+								System.out.println(TEXT_DIVIDER);
+								clearConsole();
+								System.out.println("Enter an Enterger from 1 to 2");
+								System.out.println(TEXT_DIVIDER);
+								subMenuAdd("Add another Task");
+							}
 						}
-						subMenuInput = keyboard.nextInt();
 						System.out.println(TEXT_DIVIDER);
-						System.out.print("\033[H\033[2J");
+						clearConsole();
 						break;
 					case BACK_TO_MENU_OPTION:
 						break;
 					default:
-						while (!keyboard.hasNextInt()) {
-							keyboard.next();
-							System.out.println(TEXT_DIVIDER);
-							System.out.print("Enter an Enterger from 1 to 2");
-							System.out.println(TEXT_DIVIDER);
-							subMenuAnother("Add another Task");
-						}
-						subMenuInput = keyboard.nextInt();
+						System.out.println("Enter an Enterger from 1 to 2");
 						System.out.println(TEXT_DIVIDER);
-						System.out.print("\033[H\033[2J");
+						subMenuAdd("Add another Task");
+						isSubMenuInputInteger = false;
+						while (!isSubMenuInputInteger) {
+							try {
+								subMenuInput = Integer.parseInt(keyboard.nextLine());
+								isSubMenuInputInteger = true;
+							} catch (NumberFormatException e) {
+								System.out.println(TEXT_DIVIDER);
+								clearConsole();
+								System.out.println("Enter an Enterger from 1 to 2");
+								System.out.println(TEXT_DIVIDER);
+								subMenuAdd("Add another Task");
+							}
+						}
+						System.out.println(TEXT_DIVIDER);
+						clearConsole();
 						break;
 					}
 				} while (subMenuInput != 2);
@@ -96,7 +114,8 @@ public class TaskerUI {
 			case 5:
 				break;
 			default:
-				System.out.println("Enter a single integer from 1 to 5: ");
+				System.out.println("Enter a single integer from 1 to 5");
+				System.out.println(TEXT_DIVIDER);
 				break;
 			}
 		} while (menuInput != 5);
@@ -122,7 +141,7 @@ public class TaskerUI {
 	 * main menu.
 	 * @param firstMenuOption the String for sub menu option to perform the same option again
 	 */
-	public static void subMenuAnother(String firstMenuOption) {
+	public static void subMenuAdd(String firstMenuOption) {
 		System.out.println("1. Add another Task");
 		System.out.println("2. Back to menu");
 		System.out.println(TEXT_DIVIDER);
@@ -157,22 +176,28 @@ public class TaskerUI {
 			try {
 				listTasks(tasker);
 				System.out.print("What is the name of this Task? ");
-				keyboard.nextLine();
 				String taskName = keyboard.nextLine();
 				System.out.print("What is the priority of " + taskName + "? ");
-				while (!keyboard.hasNextInt()) {
-					keyboard.next();
-					System.out.println(TEXT_DIVIDER);
-					System.out.println("Priority has to be an integer.");
-					System.out.println(TEXT_DIVIDER);
-					System.out.print("What is the priority of " + taskName + "? ");
+				int taskPriority = 0;
+				boolean isTaskPriorityValid = false;
+				while (!isTaskPriorityValid) {
+					try {
+						taskPriority = Integer.parseInt(keyboard.nextLine());
+						isTaskPriorityValid = true;
+					} catch (NumberFormatException e) {
+						System.out.println(TEXT_DIVIDER);
+						clearConsole();
+						System.out.println("Priority has to be an integer.");
+						System.out.println(TEXT_DIVIDER);
+						System.out.print("What is the priority of " + taskName + "? ");
+					}
 				}
-				int taskPriority = keyboard.nextInt();
 				tasker.addTask(taskPriority, taskName);
 				sucessfulTask = true;
 				System.out.println(TEXT_DIVIDER);
 			} catch (IndexOutOfBoundsException | IllegalArgumentException e) {
 				System.out.println(TEXT_DIVIDER);
+				clearConsole();
 				System.out.println(e.getMessage());
 				System.out.println(TEXT_DIVIDER);
 			}
