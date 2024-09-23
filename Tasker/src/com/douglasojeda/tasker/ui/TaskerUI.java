@@ -55,8 +55,8 @@ public class TaskerUI {
 					subMenuInput = keyboard.nextInt();
 					while (keyboard.hasNextInt() && subMenuInput != 1 && subMenuInput != 2) {
 						System.out.println(TEXT_DIVIDER);
-						System.out.println("Enter an Enterger from 1 to 2: ");
-						System.out.println(TEXT_DIVIDER);
+						System.out.print("Enter an Enterger from 1 to 2: ");
+						subMenuInput = keyboard.nextInt();
 					}
 					System.out.println(TEXT_DIVIDER);
 					System.out.print("\033[H\033[2J");
