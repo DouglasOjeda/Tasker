@@ -57,7 +57,7 @@ public class TaskerUI {
 						while (!keyboard.hasNextInt()) {
 							keyboard.next();
 							System.out.println(TEXT_DIVIDER);
-							System.out.print("Enter an Enterger from 1 to 2: ");
+							System.out.println("Enter an Enterger from 1 to 2");
 							System.out.println(TEXT_DIVIDER);
 							subMenuAnother("Add another Task");
 						}
@@ -71,7 +71,7 @@ public class TaskerUI {
 						while (!keyboard.hasNextInt()) {
 							keyboard.next();
 							System.out.println(TEXT_DIVIDER);
-							System.out.print("Enter an Enterger from 1 to 2: ");
+							System.out.print("Enter an Enterger from 1 to 2");
 							System.out.println(TEXT_DIVIDER);
 							subMenuAnother("Add another Task");
 						}
