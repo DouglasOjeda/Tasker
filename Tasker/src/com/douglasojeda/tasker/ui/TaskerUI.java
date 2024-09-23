@@ -37,7 +37,7 @@ public class TaskerUI {
 				System.out.println(TEXT_DIVIDER);
 				clearConsole();
 				System.out.println("Enter a single integer from 1 to 5: ");
-				System.out.println();
+				System.out.println(TEXT_DIVIDER);
 				menuDisplay(tasker);
 			}
 			menuInput = keyboard.nextInt();
