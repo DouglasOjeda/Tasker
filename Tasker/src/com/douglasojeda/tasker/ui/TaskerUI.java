@@ -52,12 +52,12 @@ public class TaskerUI {
 					System.out.println("Task was added!");
 					System.out.println(TEXT_DIVIDER);
 					subMenuAnother("Add another Task");
-					subMenuInput = keyboard.nextInt();
 					while (!keyboard.hasNextInt() && subMenuInput != 1 && subMenuInput != 2) {
+						keyboard.next();
 						System.out.println(TEXT_DIVIDER);
 						System.out.print("Enter an Enterger from 1 to 2: ");
-						subMenuInput = keyboard.nextInt();
 					}
+					subMenuInput = keyboard.nextInt();
 					System.out.println(TEXT_DIVIDER);
 					System.out.print("\033[H\033[2J");
 				} while (subMenuInput != 2);
