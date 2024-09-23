@@ -53,7 +53,7 @@ public class TaskerUI {
 					System.out.println(TEXT_DIVIDER);
 					subMenuAnother("Add another Task");
 					subMenuInput = keyboard.nextInt();
-					while (keyboard.hasNextInt() && subMenuInput != 1 && subMenuInput != 2) {
+					while (!keyboard.hasNextInt() && subMenuInput != 1 && subMenuInput != 2) {
 						System.out.println(TEXT_DIVIDER);
 						System.out.print("Enter an Enterger from 1 to 2: ");
 						subMenuInput = keyboard.nextInt();
