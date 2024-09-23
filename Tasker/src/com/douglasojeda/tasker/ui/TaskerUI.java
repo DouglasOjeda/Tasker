@@ -36,7 +36,7 @@ public class TaskerUI {
 				keyboard.next();
 				System.out.println(TEXT_DIVIDER);
 				clearConsole();
-				System.out.println("Enter a single integer from 1 to 5: ");
+				System.out.println("Enter a single integer from 1 to 5");
 				System.out.println(TEXT_DIVIDER);
 				menuDisplay(tasker);
 			}
@@ -53,9 +53,10 @@ public class TaskerUI {
 					System.out.println(TEXT_DIVIDER);
 					subMenuAnother("Add another Task");
 					subMenuInput = keyboard.nextInt();
-					while (subMenuInput != 1 && subMenuInput != 2) {
+					while (keyboard.hasNextInt() && subMenuInput != 1 && subMenuInput != 2) {
 						System.out.println(TEXT_DIVIDER);
 						System.out.println("Enter an Enterger from 1 to 2: ");
+						System.out.println(TEXT_DIVIDER);
 					}
 					System.out.println(TEXT_DIVIDER);
 					System.out.print("\033[H\033[2J");
@@ -75,7 +76,7 @@ public class TaskerUI {
 			case 5:
 				break;
 			default:
-				System.out.println("Error");
+				System.out.println("Enter a single integer from 1 to 5: ");
 				break;
 			}
 		} while (menuInput != 5);
