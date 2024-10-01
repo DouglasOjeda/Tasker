@@ -138,8 +138,16 @@ public class TaskManager {
 	 * Returns a Task with a given priority.
 	 * @param priority the priority of the Task to get
 	 * @return Task with give priority
+	 * @throws IllegalArgumentException when the size of TaskManager is zero.
+	 * @throws IndexOutOfBoundsException when there is no Task at that priority.
 	 */
 	public Task getTask(int priority) {
+		if (tasks.size() == 0) {
+			throw new IllegalArgumentException("There are no Tasks yet.");
+		}
+		if (priority < 1 || priority > tasks.size() + 1) {
+			throw new IndexOutOfBoundsException("There is no Task at that priority " + priority + ".");
+		}
 		return tasks.get(priority - 1);
 	}
 }
