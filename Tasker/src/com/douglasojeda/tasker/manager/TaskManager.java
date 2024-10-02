@@ -1,7 +1,11 @@
 package com.douglasojeda.tasker.manager;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 
+import com.douglasojeda.tasker.io.TaskReader;
+import com.douglasojeda.tasker.io.TaskWriter;
 import com.douglasojeda.tasker.task.Task;
 
 /**
@@ -149,5 +153,36 @@ public class TaskManager {
 			throw new IndexOutOfBoundsException("There is no Task at that priority " + priority + ".");
 		}
 		return tasks.get(priority - 1);
+	}
+	/**
+	 * Saves all Tasks in TaskManager onto a file.
+	 * @param fileName the file name of the File that the Tasks will be saved onto
+	 * @throws IllegalArgumentException when their is a problem saving the file.
+	 */
+	public void saveTasks(String fileName) {
+		try {
+			TaskWriter.writeTaskFile(fileName, this);
+		} catch (IOException e) {
+			throw new IllegalArgumentException("Can't save file.");
+		}
+	}
+	/**
+	 * Loads Tasks from a file onto the TaskManager.
+	 * @param fileName the file name of the File where the tasks will be loaded from
+	 * @throws IllegalArgumentException when the fileName leads to a file that can't
+	 * be found or opened.
+	 */
+	public void loadTasks(String fileName) {
+		ArrayList<Task> tasks = null;
+		try {
+			tasks = TaskReader.readTaskFile(fileName);
+		} catch (FileNotFoundException e) {
+			throw new IllegalArgumentException("File can't be found.");
+		}
+		if (tasks != null) {
+			for (int i = 0; i < tasks.size(); i++) {
+				addTask(tasks.get(i).getPriority(), tasks.get(i).getName());
+			}
+		}
 	}
 }

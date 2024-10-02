@@ -38,7 +38,6 @@ public class TaskReader {
 	}
 	private static Task taskReader(String fileLine) {
 		Scanner lineReader = new Scanner(fileLine);
-		lineReader.close();
 		lineReader.useDelimiter(",");
 		try {
 			int priority = lineReader.nextInt();

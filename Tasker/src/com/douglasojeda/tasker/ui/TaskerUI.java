@@ -3,6 +3,7 @@ package com.douglasojeda.tasker.ui;
 import com.douglasojeda.tasker.manager.TaskManager;
 import com.douglasojeda.tasker.task.Task;
 
+import java.io.File;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
@@ -30,6 +31,7 @@ public class TaskerUI {
 	public static void main(String[] args) {
 		Scanner keyboard = new Scanner(System.in);
 		TaskManager tasker = new TaskManager();
+		tasker.loadTasks("./program_files/Tasker_files/personal_tasks.txt");
 		int menuInput = 0;
 		//Main menu loop
 		clearConsole();
@@ -76,6 +78,7 @@ public class TaskerUI {
 						break;
 					}
 				} while (addSubMenuInput != BACK_TO_MENU_OPTION);
+				tasker.saveTasks("./program_files/Tasker_files/personal_tasks.txt");
 				break;
 			case MENU_OPTION_REMOVE:
 				int removeSubMenuInput = PERFORM_MAIN_MENU_OPTION;
@@ -101,6 +104,7 @@ public class TaskerUI {
 						break;
 					}
 				} while (removeSubMenuInput != BACK_TO_MENU_OPTION);
+				tasker.saveTasks("./program_files/Tasker_files/personal_tasks.txt");
 				break;
 			case MENU_OPTION_CHANGE:
 				System.out.println("Not implemented yet.");
