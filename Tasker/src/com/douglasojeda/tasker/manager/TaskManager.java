@@ -71,22 +71,6 @@ public class TaskManager {
 		tasks.add(priority - 1, new Task(priority, name));
 	}
 	/**
-	 * Adds a Task to the front of the list with the highest priority.
-	 * @param name the name of the Task to be added
-	 * @throws IllegalArgumentException when when priority, or name are invalid.
-	 */
-	public void addTaskHighestPriority(String name) {
-		addTask(1, name);
-	}
-	/**
-	 * Adds a Task to the front of the list with the lowest priority.
-	 * @param name the name of the Task to be added
-	 * @throws IllegalArgumentException when when priority, or name are invalid.
-	 */
-	public void addTaskLowestPriority(String name) {
-		addTask(size() + 1, name);
-	}
-	/**
 	 * Removes a Task from the list.
 	 * @param priority the priority of the Task being removed
 	 * @return the Task that was removed
@@ -104,32 +88,6 @@ public class TaskManager {
 			tasks.set((i), new Task(i , transferName));
 		}
 		return tasks.remove(priority - 1);
-	}
-	/**
-	 * Changes the Task priority to another priority.
-	 * @param oldPriority the old priority
-	 * @param newPriority the new priority
-	 * @throws IllegalArgumentException when the oldPriority is the same as the newPriority.
-	 * When the size is 0.
-	 * @throws IndexOutOfBoundsException when the oldPriority and the newPriority are less than 1,
-	 * or greater than size.
-	 */
-	public void changeTaskPriority(int oldPriority, int newPriority) {
-		if (tasks.size() == 0) {
-			throw new IllegalArgumentException("There are no Tasks yet.");
-		}
-		if (oldPriority == newPriority) {
-			throw new IllegalArgumentException("The new priority can't be the same as the old priority.");
-		}
-		if (oldPriority < 1 || oldPriority > tasks.size()) {
-			throw new IndexOutOfBoundsException("Priority has to be an integer from " + "1 to " + size() + ".");
-		}
-		if (newPriority < 1 || newPriority > tasks.size()) {
-			throw new IndexOutOfBoundsException("Priority has to be an integer from " + "1 to " + size() + ".");
-		}
-		String transferName = getTask(oldPriority).getName();
-		removeTask(oldPriority);
-		addTask(newPriority, transferName);
 	}
 	/**
 	 * Returns the size of the Task list.

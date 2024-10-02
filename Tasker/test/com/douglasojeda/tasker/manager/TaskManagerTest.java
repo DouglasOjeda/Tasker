@@ -64,7 +64,7 @@ public class TaskManagerTest {
 		assertEquals(4, tasker.getTask(4).getPriority());
 		assertEquals("Homework 2", tasker.getTask(4).getName());
 		//Adding with highest priority method
-		tasker.addTaskHighestPriority("Pay Bills");
+		tasker.addTask(1, "Pay Bills");
 		assertEquals(5, tasker.size());
 		assertEquals(1, tasker.getTask(1).getPriority());
 		assertEquals("Pay Bills", tasker.getTask(1).getName());
@@ -77,7 +77,7 @@ public class TaskManagerTest {
 		assertEquals(5, tasker.getTask(5).getPriority());
 		assertEquals("Homework 2", tasker.getTask(5).getName());
 		//Adding with the lowest priority method
-		tasker.addTaskLowestPriority("Assignment");
+		tasker.addTask(tasker.size(), "Assignment");
 		assertEquals(6, tasker.size());
 		assertEquals(1, tasker.getTask(1).getPriority());
 		assertEquals("Pay Bills", tasker.getTask(1).getName());
@@ -128,34 +128,6 @@ public class TaskManagerTest {
 		assertEquals("Reading 2", tasker.getTask(2).getName());
 		assertEquals(3, tasker.getTask(3).getPriority());
 		assertEquals("Homework 2", tasker.getTask(3).getName());
-	}
-	/**
-	 * Testing the changeTaskPriority method.
-	 */
-	@Test
-	public void testChangeTaskPriority() {
-		TaskManager tasker = new TaskManager();
-		Exception e1 = assertThrows(IllegalArgumentException.class, () -> tasker.changeTaskPriority(1, 1));
-		assertEquals("There are no Tasks yet.", e1.getMessage());
-		tasker.addTask(1, "Homework 1");
-		Exception e2 = assertThrows(IllegalArgumentException.class, () -> tasker.changeTaskPriority(1, 1));
-		assertEquals("The new priority can't be the same as the old priority.", e2.getMessage());
-		Exception e3 = assertThrows(IndexOutOfBoundsException.class, () -> tasker.changeTaskPriority(2, 1));
-		assertEquals("Priority has to be an integer from 1 to 1.", e3.getMessage());
-		Exception e4 = assertThrows(IndexOutOfBoundsException.class, () -> tasker.changeTaskPriority(1, 2));
-		assertEquals("Priority has to be an integer from 1 to 1.", e4.getMessage());
-		tasker.addTask(2, "Homework 2");
-		tasker.addTask(3, "Homework 3");
-		tasker.addTask(4, "Homework 4"); 
-		tasker.changeTaskPriority(1, 2);
-		assertEquals(1, tasker.getTask(1).getPriority());
-		assertEquals("Homework 2", tasker.getTask(1).getName());
-		assertEquals(2, tasker.getTask(2).getPriority());
-		assertEquals("Homework 1", tasker.getTask(2).getName());
-		assertEquals(3, tasker.getTask(3).getPriority());
-		assertEquals("Homework 3", tasker.getTask(3).getName());
-		assertEquals(4, tasker.getTask(4).getPriority());
-		assertEquals("Homework 4", tasker.getTask(4).getName());
 	}
 	/**
 	 * Testing the setTitle method.
