@@ -1,10 +1,8 @@
 package com.douglasojeda.tasker.ui;
 
 import com.douglasojeda.tasker.manager.TaskManager;
-import com.douglasojeda.tasker.task.Task;
 
-import java.io.File;
-import java.util.InputMismatchException;
+import java.time.ZonedDateTime;
 import java.util.Scanner;
 
 public class TaskerUI {
@@ -31,6 +29,7 @@ public class TaskerUI {
 	public static void main(String[] args) {
 		Scanner keyboard = new Scanner(System.in);
 		TaskManager tasker = new TaskManager();
+		//I hard coded my load and save destination, but you could prompt the user for destination
 		tasker.loadTasks("./program_files/Tasker_files/personal_tasks.txt");
 		int menuInput = 0;
 		//Main menu loop
@@ -138,6 +137,8 @@ public class TaskerUI {
 	 * @param tasker the TaskManager used for getting name.
 	 */
 	public static void menuDisplay(TaskManager tasker) {
+		ZonedDateTime date = ZonedDateTime.now();
+		System.out.format("%02d/%02d/%d\n", date.getMonthValue(), date.getDayOfMonth(), date.getYear());
 		System.out.println("Welcome to " + tasker.getTitle());
 		System.out.println(TEXT_DIVIDER);
 		System.out.println("1. Add Task");
